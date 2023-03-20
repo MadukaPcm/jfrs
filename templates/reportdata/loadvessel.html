@@ -1,0 +1,210 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid" style="color:#002533;">
+    <div class="row mb-2" style="padding:5px;">
+      <div class="col-sm-6">
+        <h1>Load vessel</h1>
+      </div>  
+      <div class="col-sm-3">
+        {% comment %} <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-primary">Add User</a> {% endcomment %}
+      </div>
+      <div class="col-sm-3">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"><b>Manage L & V</b></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content margtop">
+<div class="container-fluid">
+
+<div class="card" style="background:#343a40;">
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-sm table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>customer</th>
+            <th>itemNo</th>
+            <th>pd-date</th>
+            <th>a-date-d</th>
+            <th>a-d-arrival</th>
+            <th>si-r-date</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for ldvs in ldvsInstance %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ ldvs.loafum.openf.user.email }}</td>
+          <td>{{ ldvs.loafum.openf.itemNo }}</td>
+          <td>{{ ldvs.portDeliveryDate|date:"Y-m-d" }}</td>
+          <td>
+            {% if ldvs.adateDepartureNo == 1 %}
+            {{ ldvs.adateDeparture|date:"Y-m-d" }}
+            {% else %}
+            <a title="a-loading date" href="#" data-toggle="modal" data-target="#modal-adp{{ldvs.id}}">+ a-date-d</a>
+            {% endif %}
+        </td>
+          <td>
+            {% if ldvs.adateArrivalNo == 2 %}
+            {{ ldvs.adateArrival|date:"Y-m-d" }}
+            {% else %}
+            <a title="start fum-date" href="#" data-toggle="modal" data-target="#modal-ada{{ldvs.id}}">+ a-d-arrival</a>
+            {% endif %}
+          <td>
+            {% if ldvs.siReceiveDateNo == 3 %}
+            {{ ldvs.siReceiveDate|date:"Y-m-d" }}
+            {% else %}
+            None
+            {% endif %}
+          <td>
+            <a class="fa fa-check btn-sm btn-success" title="block" href="#"></a>
+            <a class="fa fa-edit btn-sm btn-primary" title="edit" href="#" data-toggle="modal" data-target="#modal-secondary{{ldvs.id}}"></a>
+            <a class="fa fa-plus btn-sm btn-secondary" title="end fum date" href="#" data-toggle="modal" data-target="#modal-rd{{ldvs.id}}"></a>
+          </td>
+        </tr>
+        {% endfor %}
+  
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>#</th>
+            <th>customer</th>
+            <th>itemNo</th>
+            <th>pd-date</th>
+            <th>a-date-d</th>
+            <th>a-d-arrival</th>
+            <th>si-r-date</th>
+            <th>Actions</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+</div>
+
+
+{% for ldvs in ldvsInstance %}
+  <div class="modal fade" id="modal-adp{{ldvs.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Actuak date of depature</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'adp_url' ldvs.id %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                  <input type="date" name="AdateDeparture" class="form-control" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-clock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+  {% for ldvs in ldvsInstance %}
+  <div class="modal fade" id="modal-ada{{ldvs.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Actual date of arrival</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'ada_url' ldvs.id %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                  <input type="date" name="AdateArrival" class="form-control" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-clock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+
+  {% for ldvs in ldvsInstance %}
+  <div class="modal fade" id="modal-rd{{ldvs.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">date received by customer</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'rd_url' ldvs.id %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                  <input type="date" name="SiReceiveDate" class="form-control" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-clock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+{% endblock content %}

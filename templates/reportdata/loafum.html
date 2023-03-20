@@ -1,0 +1,248 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid" style="color:#002533;">
+    <div class="row mb-2" style="padding:5px;">
+      <div class="col-sm-6">
+        <h1>Loading and fumigation</h1>
+      </div>  
+      <div class="col-sm-3">
+        {% comment %} <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-primary">Add User</a> {% endcomment %}
+      </div>
+      <div class="col-sm-3">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"><b>Manage L & F</b></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content margtop">
+<div class="container-fluid">
+
+<div class="card" style="background:#343a40;">
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-sm table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>customer</th>
+          <th>itemNo</th>
+          <th>eLoadngDate</th>
+          <th>aLoadingDate</th>
+          <th>start fum</th>
+          <th>end fum</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for loafum in loafumInstance %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ loafum.openf.user.email }}</td>
+          <td>{{ loafum.openf.itemNo }}</td>
+          <td>{{ loafum.eloadingDate|date:"Y-m-d" }}</td>
+          <td>
+            {% if loafum.aloadingDateNo == 1 %}
+            {{ loafum.aloadingDate|date:"Y-m-d" }}
+            {% else %}
+            <a title="a-loading date" href="#" data-toggle="modal" data-target="#modal-ald{{loafum.id}}">+ aLoadingDate</a>
+            {% endif %}
+        </td>
+          <td>
+            {% if loafum.fumigationStartDateNo == 2 %}
+            {{ loafum.fumigationStartDate|date:"Y-m-d" }}
+            {% else %}
+            <a title="start fum-date" href="#" data-toggle="modal" data-target="#modal-sfd{{loafum.id}}">+ start fum-date</a>
+            {% endif %}
+          <td>
+            {% if loafum.fumigationEndDateNo == 3 %}
+            {{ loafum.fumigationEndDate|date:"Y-m-d" }}
+            {% else %}
+            None
+            {% endif %}
+          <td>
+            <a class="fa fa-check btn-sm btn-success" title="block" href="#"></a>
+            <a class="fa fa-edit btn-sm btn-primary" title="edit" href="#" data-toggle="modal" data-target="#modal-secondary{{loafum.id}}"></a>
+            <a class="fa fa-plus btn-sm btn-secondary" title="end fum date" href="#" data-toggle="modal" data-target="#modal-efd{{loafum.id}}"></a>
+            <a class="fa fa-plus btn-sm btn-info" title="port d-date" href="#" data-toggle="modal" data-target="#modal-pdd{{loafum.id}}"></a>
+          </td>
+        </tr>
+        {% endfor %}
+  
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>#</th>
+            <th>customer</th>
+            <th>itemNo</th>
+            <th>eLoadngDate</th>
+            <th>aLoadingDate</th>
+            <th>start fum</th>
+            <th>end fum</th>
+            <th>Actions</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+</div>
+
+
+  {% for loafum in loafumInstance %}
+  <div class="modal fade" id="modal-ald{{loafum.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Assign actual time of loading</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'atl_url' loafum.id %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                  <input type="date" name="AloadingDate" class="form-control" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-clock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+  {% for loafum in loafumInstance %}
+  <div class="modal fade" id="modal-sfd{{loafum.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">start fum-date</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'sfd_url' loafum.id %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                  <input type="date" name="FumigationStartDate" class="form-control" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-clock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+
+  {% for loafum in loafumInstance %}
+  <div class="modal fade" id="modal-efd{{loafum.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">end fum-date</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'efd_url' loafum.id %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                  <input type="date" name="FumigationEndDate" class="form-control" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-clock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+  {% for loafum in loafumInstance %}
+  <div class="modal fade" id="modal-pdd{{loafum.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Port derivery-date</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'pdd_url' %}" method="POST">
+                {% csrf_token %}
+
+                <input type="hidden" name="loafumId" class="form-control" value="{{loafum.id}}" required>
+                <div class="input-group mb-3">
+                  <input type="date" name="portDeliveryDate" class="form-control" required>
+                  <div class="input-group-append">  
+                    <div class="input-group-text">
+                      <span class="fas fa-clock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+{% endblock content %}

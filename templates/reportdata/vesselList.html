@@ -1,0 +1,229 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<!-- Content Header (Page header) -->
+<section class="content-header">
+  <div class="container-fluid" style="color:#002533;">
+    <div class="row mb-2" style="padding:5px;">
+      <div class="col-sm-6">
+        <h1>Vessel booking.</h1>
+      </div>  
+      <div class="col-sm-3">
+        <a class="btn btn-primary pull-right" href="#" data-toggle="modal" data-target="#modal-billv">bill a Vessel</a>
+      </div>
+      <div class="col-sm-3">
+        <ol class="breadcrumb float-sm-right">
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active"><b>Manage V-booking.</b></li>
+        </ol>
+      </div>
+    </div>
+  </div><!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content margtop">
+<div class="container-fluid">
+
+<div class="card" style="background:#343a40;">
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-sm table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>bookingDate</th>
+          <th>eVesselName</th>
+          <th>aVesselName</th>
+          <th>carrierBookingRef</th>
+          <th>mbol</th>
+          <th>updatedBy</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for vbill in vesselInstance %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ vbill.bookingDate|date:"Y-m-d" }}</td>
+          <td>{{ vbill.eVesselName }}</td>
+          <td>{{ vbill.aVesselName }}</td>
+          <td>{{ vbill.carrierBookingRef }}</td>
+          <td>{{ vbill.mbol }}</td>
+          <td>{{ vbill.updatedBy.email }}</td>
+          <td>  
+            <a class="fa fa-check btn-sm btn-success" title="block" href="#"></a>
+            <a class="fa fa-edit btn-sm btn-primary" title="edit" href="#" data-toggle="modal" data-target="#modal-secondary{{vbill.id}}"></a>
+        </tr>
+        {% endfor %}
+  
+        </tbody>
+        <tfoot>
+        <tr>
+          <th>#</th>
+          <th>bookingDate</th>
+          <th>eVesselName</th>
+          <th>aVesselName</th>
+          <th>carrierBookingRef</th>
+          <th>mbol</th>
+          <th>updatedBy</th>
+          <th>Actions</th>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.card-body -->
+  </div>
+  <!-- /.card -->
+</div>
+</div>
+
+
+<div class="modal fade" id="modal-billv">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Book a new vessel.</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'createvesselb_url' %}" method="POST">
+                {% csrf_token %}
+
+                <div class="input-group mb-3">
+                  <input type="date" name="bookingDate" class="form-control" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-clock"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="text" name="eVesselName" class="form-control" placeholder="expected vessel name" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-list"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="text" name="aVesselName" class="form-control" placeholder="actual vessel name" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-list"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="text" name="carrierBookingRef" class="form-control" placeholder="carrier booking ref#" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-list"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="text" name="mbol" class="form-control" placeholder="type a mbol" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-list"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+
+  {% for allUser in userListData %}
+  <div class="modal fade" id="modal-secondary{{allUser.id}}">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Update user.</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="input-group mb-3">
+            <p class="form-control">CreatedBy: <i>{{allUser.createdBy}},@{{ allUser.createdAt|date:"d/m/Y" }}</i></p>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="far fa-clock"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-group mb-3">
+              <p class="form-control">updatedBy: <i>{{allUser.updatedBy}},@{{ allUser.updatedAt|date:"d/m/Y" }}</i></p>
+                <div class="input-group-append">
+                  <div class="input-group-text">
+                    <span class="far fa-clock"></span>
+                  </div>
+                </div>
+              </div>
+            <form action="{% url 'updateUser_url' %}" method="POST">
+                {% csrf_token %}
+
+                <input type="hidden" name="profileId" class="form-control" value="{{allUser.id}}" required>
+                <div class="input-group mb-3">
+                  <input type="text" name="Username" class="form-control" placeholder="Employ Number" value="{{allUser.user.username}}" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-user"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <input type="email" name="Email" class="form-control" placeholder="Email" value="{{allUser.user.email}}" required>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-envelope"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="input-group mb-3">
+                  <select name="RoleId" class="form-control">
+                      {% for roleInstance in roleInstanceData %}
+                      {% if roleInstance in allUser.user.groups.all %}
+                      <option value="{{ roleInstance.id }}" selected>{{ roleInstance.name }}</option>
+                      {% else %}
+                      <option value="{{ roleInstance.id }}">{{ roleInstance.name }}</option>
+                      {% endif %}
+                      {% endfor %}
+                  </select>
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <span class="fas fa-list"></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-outline-light">Save changes</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+  </div>
+  <!-- /.modal -->
+  {% endfor %}
+
+{% endblock content %}
