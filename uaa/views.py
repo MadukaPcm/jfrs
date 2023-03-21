@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import Group
 from uaa.models import Profile,User
+from reportdata.models import VesselBooking,Openf,Loafum,loaVessel
 from reportdata.models import VesselBooking
 from django.contrib.auth import authenticate,login,logout
 import uuid
@@ -207,8 +208,10 @@ def RecoverPasswordView(request, email):
 
 def DashboardView(request):
     
-    context = {}
-    return render(request,"uaa/dashboard.html")
+    opf = Openf.objects.all()
+    
+    context = {"opf":opf}
+    return render(request,"uaa/dashboard.html", context)
 
 
 def ProfileView(request):
