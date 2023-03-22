@@ -32,20 +32,12 @@
                   <script>
                       var ctx = document.getElementById('myChart1').getContext('2d');
                       var myChart1 = new Chart(ctx, {
-                          type: 'polarArea',
+                          type: 'line',  
                           data: {
-                              labels: [{% for op in opf %} '{{op.vesselBooking.bookingDate|date:"Y-m-d"}}', {% endfor %}],
+                              labels: [{% for op in opf %} '{{op.eta|date:"Y-m-d"}}', {% endfor %}],
                               datasets: [{
-                                  label: 'Products',
-                                  data: [{% for op in opf %} {{op.freightBookingNo}}, {% endfor %}],
-                                  backgroundColor: [
-                                      'rgba(255, 99, 132, 1)',
-                                      'rgba(54, 162, 235, 1)',
-                                      'rgba(255, 206, 86, 1)',
-                                      'rgba(75, 192, 192, 1)',
-                                      'rgba(153, 102, 255, 1)',
-                                      'rgba(255, 159, 64, 1)'
-                                  ],
+                                  label: 'item number',
+                                  data: [{% for op in opf %} '{{op.itemNo}}', {% endfor %}],
                                   borderColor: [
                                       'rgba(255, 99, 132, 1)',
                                       'rgba(54, 162, 235, 1)',
@@ -81,7 +73,7 @@
                               labels: [{% for op in opf %} '{{op.vesselBooking.bookingDate|date:"Y-m-d"}}', {% endfor %}],
                               datasets: [{
                                   label: 'Opened files',  
-                                  data: [{% for op in opf %} {{op.freightBookingNo}}, {% endfor %}],
+                                  data: [{% for op in opf %} '{{op.itemNo}}', {% endfor %}],
                                   backgroundColor: [
                                       'rgba(255, 99, 60, 1)',
                                       'rgba(54, 162, 235, 1)',
@@ -110,6 +102,7 @@
                                   }]
                               }
                           }
+                          
                       });
                   </script>
               </div>
@@ -127,12 +120,12 @@
                 <script>
                     var ctx = document.getElementById('myChart11').getContext('2d');
                     var myChart11 = new Chart(ctx, {
-                        type: 'line',
+                        type: 'radar',
                         data: {
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            labels: [{% for op in opf %} '{{op.eta|date:"Y-m-d"}}', {% endfor %}],
                             datasets: [{
                                 label: 'Products',
-                                data: [12, 19, 3, 5, 2, 3],
+                                data: [{% for op in opf %} '{{op.itemNo}}', {% endfor %}],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 1)',
                                     'rgba(54, 162, 235, 1)',
@@ -173,10 +166,10 @@
                     var myChartt = new Chart(ctx, {
                         type: 'doughnut',
                         data: {
-                            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                            labels: [{% for op in opf %} '{{op.eta|date:"Y-m-d"}}', {% endfor %}],
                             datasets: [{
                                 label: 'Products',
-                                data: [12, 19, 3, 5, 2, 3],
+                                data: [{% for op in opf %} '{{op.itemNo}}', {% endfor %}],
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 1)',
                                     'rgba(54, 162, 235, 1)',
@@ -218,10 +211,10 @@
                   var myCharttt = new Chart(ctx, {
                       type: 'radar',
                       data: {
-                          labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                          labels: [{% for op in opf %} '{{op.eta|date:"Y-m-d"}}', {% endfor %}],
                           datasets: [{
                               label: 'Products',
-                              data: [12, 19, 3, 5, 2, 3],
+                              data: [{% for op in opf %} '{{op.itemNo}}', {% endfor %}],
                               backgroundColor: [
                                   'rgba(255, 99, 132, 1)',
                                   'rgba(54, 162, 235, 1)',

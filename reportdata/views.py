@@ -29,6 +29,10 @@ def OpenfileView(request):
             if Openf.objects.filter(vesselBooking__id=VesselBookingId).first():
                 messages.info(request,'The carrier book reference already exist, create new one')
                 return redirect('uaaUserList_url')
+            
+            if Openf.objects.filter(itemNo=ItemNo).first():
+                messages.info(request,'The item already exist, create new one')
+                return redirect('uaaUserList_url')
         
             Openf.objects.create(
                 user_id=userId,
