@@ -1,12 +1,15 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from uaa.models import Profile,User
 from reportdata.models import VesselBooking,Openf,Loafum,loaVessel
 from reportdata.models import VesselBooking
 from django.contrib.auth import authenticate,login,logout
 import uuid
+
+import plotly.graph_objs as go
 
 from django.conf import settings
 from django.core.mail import EmailMessage
@@ -209,8 +212,33 @@ def RecoverPasswordView(request, email):
 def DashboardView(request):
     
     opf = Openf.objects.all()
+    copf = Openf.objects.filter(user=request.user)
     
-    context = {"opf":opf}
+    #create a list of x and y coordinates
+    x = []
+    y = []
+    a = []
+    b = []
+    
+    for cu in copf:
+        x.append(cu.itemNo)
+        y.append(cu.eta)
+    # for cu in copf:
+    #     x.append()
+    #     y.append()
+    
+    for c in opf:
+        a.append(c.itemNo)
+        b.append(c.eta)
+    
+    print(copf)
+    
+    #plot the graph...
+    fig = go.Figure(data=go.Scatter(x=x,y=y))    #bae=0
+    figure2 = go.Figure(data=go.Bar(x=b,y=a))
+    # fig = figure.update_layout(xaxis=dict(autorange="reversed"))
+    
+    context = {"opf":opf,"graph":figure2.to_html()}
     return render(request,"uaa/dashboard.html", context)
 
 
@@ -284,7 +312,6 @@ def ErrorView(request):
     
     context = {}
     return render(request,"uaa/error.html")
-
 
 def UaaUserListView(request):
     try:
