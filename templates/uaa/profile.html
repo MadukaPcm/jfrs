@@ -12,7 +12,7 @@
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
-          <li class="breadcrumb-item"><a href="{% url 'dashboard_url' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Home</a></li>
           <li class="breadcrumb-item active"><b>User Profile</b></li>
         </ol>
       </div>
@@ -87,6 +87,15 @@
                 Female
                 {% endif %}
               </p>
+
+              <div class="dropdown-divider"></div>
+              <a href="{% url 'logout_url' %}" class="dropdown-item">
+                <i class="fas fa-sign-out-alt mr-2"></i> sign-out
+                <span class="float-right text-muted text-sm">
+                  <i class="fas fa-star-half-alt mr-2" style="color:red;"></i>
+                </span>
+              </a>
+
             </div>
             <!-- /.card-body -->
           </div>
@@ -98,6 +107,7 @@
             <div class="card-header p-2">
               <ul class="nav nav-pills">
                 <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Update-profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="#profilepic" data-toggle="tab">profile-picture</a></li>
               </ul>
             </div><!-- /.card-header -->
             <div class="card-body">
@@ -153,9 +163,28 @@
                   </form>
                 </div>
                 <!-- /.tab-pane -->
+
+                <div class="tab-pane" id="profilepic">
+                  
+                  <form action="{% url 'updateProfilePic_url' %}" method="POST" enctype="multipart/form-data"  class="form-horizontal">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                      <label for="inputName" class="col-sm-2 col-form-label">Profile picture</label>
+                      <div class="col-sm-10">
+                        <input type="file" name="profilePic" id="profile_picture" onchange="checkFileSize()" accept="image/png, image/jpg image/jpeg" class="form-control" id="inputName" required>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="offset-sm-2 col-sm-10">
+                        <button type="submit" class="btn btn-primary">save</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.tab-pane -->
               </div>
               <!-- /.tab-content -->
-            </div><!-- /.card-body -->
+
           </div>
           <!-- /.card -->
         </div>

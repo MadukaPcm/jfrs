@@ -1,0 +1,216 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+ <!-- Main content -->
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6" style="color:#002533;">
+              <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'customer_url' %}">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+
+<section class="content pb-3">
+
+    <div class="container-fluid h-100">
+      <div class="card card-row card-secondary">
+        <div class="card-header">
+          <h3 class="card-title">
+            Opening file status (taarifa za kufungua file)
+          </h3>
+        </div>
+
+        <div class="row mb-2" style="padding:5px;">
+            <div class="col-sm-3">
+                <p><b><i>Item Numner</i></b></p>
+                <div class="dropdown-divider"></div>
+                <p>
+                    13558092
+                </p>
+            </div>  
+            <div class="col-sm-3">
+                <p><b><i>Created At</i></b></p>
+                <div class="dropdown-divider"></div>
+                <p>
+                    2023-03-31
+                </p>
+            </div>  
+            <div class="col-sm-2">
+                <p><b><i>contqnty</i></b></p>
+                <div class="dropdown-divider"></div>
+                <p>
+                    10
+                </p>
+            </div>
+            <div class="col-sm-2">
+                <p><b><i>Departure e-time</i></b></p>
+                <div class="dropdown-divider"></div>
+                <p>
+                    2023-03-31	
+                </p>
+            </div>
+            <div class="col-sm-2">
+                <p><b><i>Arrival e-time</i></b></p>
+                <div class="dropdown-divider"></div>
+                <p>
+                    2023-04-31	
+                </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-row card-primary">
+        <div class="card-header">
+          <h3 class="card-title">
+            Load fumigation status(Taarifa za upigaji dawa mzigo)
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+                <div class="row mb-2" stye="padding:5px;">
+                <div class="col-sm-3">
+                    <p><b><i>Item number</i></b></p>
+                    <div class="dropdown-divider"></div>
+                    <p>
+                        13558092
+                    </p>
+                </div>  
+                <div class="col-sm-3">
+                    <p><b><i>loading e-date</i></b></p>
+                    <div class="dropdown-divider"></div>
+                    <p>
+                        2023-04-31.
+                    </p>
+                </div>
+                <div class="col-sm-2">
+                    <p><b><i>Loading a-date</i></b></p>
+                    <div class="dropdown-divider"></div>
+                    <p>
+                        2023-04-31.
+                    </p>
+                </div>
+                <div class="col-sm-2">
+                    <p><b><i>Fum~ start date</i></b></p>
+                    <div class="dropdown-divider"></div>
+                    <p>
+                        2023-04-31.
+                    </p>
+                </div>
+                <div class="col-sm-2">
+                    <p><b><i>Fum~ end date</i></b></p>
+                    <div class="dropdown-divider"></div>
+                    <p>
+                        2023-04-31.
+                    </p>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-row card-default">
+        <div class="card-header bg-info">
+          <h3 class="card-title">
+            Load vessel(Taarifa za mzigo kwenye meli)
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="card card-light card-outline">
+            <div class="card-header">
+                <div class="row mb-2" stye="padding:5px;">
+                    <div class="col-sm-3">
+                        <p><b><i>Item Number</i></b></p>
+                        <div class="dropdown-divider"></div>
+                        <p>
+                            13558092.
+                        </p>
+                    </div>  
+                    <div class="col-sm-3">
+                        <p><b><i>Port delivery date</i></b></p>
+                        <div class="dropdown-divider"></div>
+                        <p>
+                            2023-04-31..
+                        </p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p><b><i>Departure a-date</i></b></p>
+                        <div class="dropdown-divider"></div>
+                        <p>
+                            2023-04-31..
+                        </p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p><b><i>Arrival a-date</i></b></p>
+                        <div class="dropdown-divider"></div>
+                        <p>
+                            2023-04-31..
+                        </p>
+                    </div>
+                </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="dropdown-divider"></div>
+
+      <div class="card card-row card-success">
+        <div class="card-header">
+          <h3 class="card-title">
+            Delivery status(Taarifa za kufika | kuchukua mzigo)
+          </h3>
+        </div>
+        <div class="card-body">
+          <div class="card card-primary card-outline">
+            <div class="card-header">
+                <div class="row mb-2" stye="padding:5px;">
+                    <div class="col-sm-3">
+                        <p><b><i>Item Number</i></b></p>
+                        <div class="dropdown-divider"></div>
+                        <p>
+                            13558092
+                        </p>
+                    </div>  
+                    <div class="col-sm-3">
+                        <p><b><i>si- Received date</i></b></p>
+                        <div class="dropdown-divider"></div>
+                        <p>
+                            2023-04-31..
+                        </p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p><b><i>Received by</i></b></p>
+                        <div class="dropdown-divider"></div>
+                        <p>
+                            madukapcm@gmail.com
+                        </p>
+                    </div>
+                    <div class="col-sm-3">
+                        <p><b><i>Status</i></b></p>
+                        <div class="dropdown-divider"></div>
+                        <p>
+                            taken
+                        </p>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  {% endblock %}

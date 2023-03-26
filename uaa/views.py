@@ -234,12 +234,17 @@ def DashboardView(request):
     print(copf)
     
     #plot the graph...
-    fig = go.Figure(data=go.Scatter(x=x,y=y))    #bae=0
+    fig = go.Figure(data=go.Line(x=b,y=a))    #bae=0
     figure2 = go.Figure(data=go.Bar(x=b,y=a))
     # fig = figure.update_layout(xaxis=dict(autorange="reversed"))
     
-    context = {"opf":opf,"graph":figure2.to_html()}
+    context = {"opf":opf,"graph":fig.to_html(),"graphh":figure2.to_html()}
     return render(request,"uaa/dashboard.html", context)
+
+def CustomerView(request):
+    
+    context = {}
+    return render(request, 'uaa/customer.html', context)
 
 
 def ProfileView(request):
@@ -290,6 +295,24 @@ def UpdateProfileView(request):
             updateProfile.save()
             
             messages.info(request,'Your Profile Is Updated')
+            return redirect('profile_url')
+    
+    except:
+        return render(None, 'uaa/error500.html')
+    
+def UpdateProfilePicView(request):
+    
+    try:
+        
+        updateProfilePic = User.objects.get(id=request.user.id)
+        if request.method == 'POST' and 'profilePic' in request.FILES:
+            profile = request.FILES
+            profileImage = profile['profilePic'] 
+            
+            updateProfilePic.profileImage = profileImage
+            updateProfilePic.save()
+            
+            messages.info(request,'Your Profile picture Is Updated')
             return redirect('profile_url')
     
     except:

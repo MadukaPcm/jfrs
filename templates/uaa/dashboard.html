@@ -22,11 +22,11 @@
 
     <section class="content margtop">
       <div class="container-fluid">
-
         <div>
+            {% autoescape off %}
             {{ graph|safe }}
+            {% endautoescape %}
         </div>
-        
       <!--Graphs-->
     <div class="container">
       <div class="row my-5">
@@ -67,49 +67,7 @@
               </div>
           </div>
           <div class="col-md-6">
-              <div class="bg-white">
-                  <canvas id="myChart" width="400" height="300"></canvas>
-                  <script>
-                      var ctx = document.getElementById('myChart').getContext('2d');
-                      var myChart = new Chart(ctx, {
-                          type: 'bar',
-                          data: {
-                              labels: [{% for op in opf %} '{{op.vesselBooking.bookingDate|date:"Y-m-d"}}', {% endfor %}],
-                              datasets: [{
-                                  label: 'Opened files',  
-                                  data: [{% for op in opf %} '{{op.itemNo}}', {% endfor %}],
-                                  backgroundColor: [
-                                      'rgba(255, 99, 60, 1)',
-                                      'rgba(54, 162, 235, 1)',
-                                      'rgba(255, 206, 86, 1)',
-                                      'rgba(75, 12, 192, 1)',
-                                      'rgba(153, 200, 255, 1)',
-                                      'rgba(255, 159, 64, 1)'
-                                  ],
-                                  borderColor: [
-                                      'rgba(255, 99, 45, 1)',
-                                      'rgba(54, 9, 235, 1)',
-                                      'rgba(255, 206, 86, 1)',
-                                      'rgba(75, 240, 192, 1)',
-                                      'rgba(153, 102, 200, 1)',
-                                      'rgba(255, 159, 64, 1)'
-                                  ],
-                                  borderWidth: 1
-                              }]
-                          },
-                          options: {
-                              scales: {
-                                  yAxes: [{
-                                      ticks: {
-                                          beginAtZero: true
-                                      }
-                                  }]
-                              }
-                          }
-                          
-                      });
-                  </script>
-              </div>
+            {{ graphh|safe }}
           </div>
       </div>
   </div>
