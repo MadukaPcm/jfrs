@@ -233,7 +233,7 @@ def DashboardView(request):
     
     print(copf)
     
-    #plot the graph...
+    #plot the graph..
     fig = go.Figure(data=go.Line(x=b,y=a))    #bae=0
     figure2 = go.Figure(data=go.Bar(x=b,y=a))
     # fig = figure.update_layout(xaxis=dict(autorange="reversed"))
@@ -242,8 +242,16 @@ def DashboardView(request):
     return render(request,"uaa/dashboard.html", context)
 
 def CustomerView(request):
+        
+    n = 2
+    usr = request.user
+    fi = Openf.objects.filter(status=True,isDone=False,user=usr).order_by('-id')[:n]
+    lfi = Loafum.objects.filter(status=True,isDone=False,lfuser=usr).order_by('-id')[:n]
+    lvi = loaVessel.objects.filter(status=True,isDone=False,lvuser=usr).order_by('-id')[:n]
+
+    print(lvi)
     
-    context = {}
+    context = {"fi_data":fi,"lfi_data":lfi,"lvi_data":lvi}
     return render(request, 'uaa/customer.html', context)
 
 

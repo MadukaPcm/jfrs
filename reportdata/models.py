@@ -52,6 +52,7 @@ class Openf(models.Model):
     updatedBy = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user_openff", null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
+    isDone = models.BooleanField(default=False)
     status= models.BooleanField(default=True)
     
     class Meta:
@@ -65,6 +66,8 @@ class Loafum(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
     openf = models.OneToOneField(Openf, related_name='openf_loafum', 
                                    on_delete=models.CASCADE, null=True, blank=True)
+    lfuser = models.ForeignKey(User, related_name='loafm_user', 
+                                   on_delete=models.CASCADE, null=True, blank=True)
     eloadingDate = models.DateField() 
     aloadingDate = models.DateField() 
     aloadingDateNo = models.IntegerField(default=0)
@@ -77,6 +80,7 @@ class Loafum(models.Model):
     updatedBy = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user_loafumm", null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
+    isDone = models.BooleanField(default=False)
     status= models.BooleanField(default=True)
     
     class Meta:
@@ -85,6 +89,8 @@ class Loafum(models.Model):
 class loaVessel(models.Model):
     id = models.UUIDField(editable=False, default=uuid.uuid4, unique=True,primary_key=True)
     loafum = models.OneToOneField(Loafum, related_name='loafm_loavessel', 
+                                   on_delete=models.CASCADE, null=True, blank=True)
+    lvuser= models.ForeignKey(User, related_name='loavs_user', 
                                    on_delete=models.CASCADE, null=True, blank=True)
     portDeliveryDate = models.DateField()
     adateDeparture = models.DateField()
@@ -98,6 +104,7 @@ class loaVessel(models.Model):
     updatedBy = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user_loavessel", null=True, blank=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
+    isDone = models.BooleanField(default=False)
     status= models.BooleanField(default=True)
     
     class Meta:

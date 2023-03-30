@@ -34,38 +34,48 @@
         <div class="row mb-2" style="padding:5px;">
             <div class="col-sm-3">
                 <p><b><i>Item Numner</i></b></p>
+                {% for fi in fi_data %}
                 <div class="dropdown-divider"></div>
                 <p>
-                    13558092
+                    {{fi.itemNo}}
                 </p>
+                {% endfor %}
             </div>  
             <div class="col-sm-3">
                 <p><b><i>Created At</i></b></p>
+                {% for fi in fi_data %}
                 <div class="dropdown-divider"></div>
                 <p>
-                    2023-03-31
+                    {{fi.createdAt|date:"Y-m-d"}}
                 </p>
+                {% endfor %}
             </div>  
             <div class="col-sm-2">
                 <p><b><i>contqnty</i></b></p>
+                {% for fi in fi_data %}
                 <div class="dropdown-divider"></div>
                 <p>
-                    10
+                    {{fi.contqnty}}
                 </p>
+                {% endfor %}
             </div>
             <div class="col-sm-2">
                 <p><b><i>Departure e-time</i></b></p>
+                {% for fi in fi_data %}
                 <div class="dropdown-divider"></div>
                 <p>
-                    2023-03-31	
+                    {{fi.etd|date:"Y-m-d"}}
                 </p>
+                {% endfor %}
             </div>
             <div class="col-sm-2">
                 <p><b><i>Arrival e-time</i></b></p>
+                {% for fi in fi_data %}
                 <div class="dropdown-divider"></div>
                 <p>
-                    2023-04-31	
+                    {{fi.eta|date:"Y-m-d"}}
                 </p>
+                {% endfor %}
             </div>
           </div>
         </div>
@@ -82,39 +92,49 @@
             <div class="card-header">
                 <div class="row mb-2" stye="padding:5px;">
                 <div class="col-sm-3">
-                    <p><b><i>Item number</i></b></p>
+                    <p><b><i>Item number</i></b></p>   
+                    {% for lf in lfi_data %}
                     <div class="dropdown-divider"></div>
                     <p>
-                        13558092
+                        {{lf.openf.itemNo}}
                     </p>
+                    {% endfor %}
                 </div>  
                 <div class="col-sm-3">
                     <p><b><i>loading e-date</i></b></p>
+                    {% for lf in lfi_data %}
                     <div class="dropdown-divider"></div>
                     <p>
-                        2023-04-31.
+                        {{lf.eloadingDate|date:"Y-m-d"}}
                     </p>
+                    {% endfor %}
                 </div>
                 <div class="col-sm-2">
                     <p><b><i>Loading a-date</i></b></p>
+                    {% for lf in lfi_data %}
                     <div class="dropdown-divider"></div>
                     <p>
-                        2023-04-31.
+                        {{lf.aloadingDate|date:"Y-m-d"}}
                     </p>
+                    {% endfor %}
                 </div>
                 <div class="col-sm-2">
                     <p><b><i>Fum~ start date</i></b></p>
+                    {% for lf in lfi_data %}
                     <div class="dropdown-divider"></div>
                     <p>
-                        2023-04-31.
+                        {{lf.fumigationStartDate|date:"Y-m-d"}}
                     </p>
+                    {% endfor %}
                 </div>
                 <div class="col-sm-2">
                     <p><b><i>Fum~ end date</i></b></p>
+                    {% for lf in lfi_data %}
                     <div class="dropdown-divider"></div>
                     <p>
-                        2023-04-31.
+                        {{lf.fumigationEndDate|date:"Y-m-d"}}
                     </p>
+                    {% endfor %}
                 </div>
             </div>
             </div>
@@ -133,31 +153,39 @@
                 <div class="row mb-2" stye="padding:5px;">
                     <div class="col-sm-3">
                         <p><b><i>Item Number</i></b></p>
+                        {% for lv in lvi_data %}
                         <div class="dropdown-divider"></div>
-                        <p>
-                            13558092.
+                        <p >
+                            {{lv.loafum.openf.itemNo}}
                         </p>
+                        {% endfor %}
                     </div>  
                     <div class="col-sm-3">
                         <p><b><i>Port delivery date</i></b></p>
+                        {% for lv in lvi_data %}
                         <div class="dropdown-divider"></div>
                         <p>
-                            2023-04-31..
+                            {{lv.portDeliveryDate|date:"Y-m-d"}}
                         </p>
+                        {% endfor %}
                     </div>
                     <div class="col-sm-3">
                         <p><b><i>Departure a-date</i></b></p>
+                        {% for lv in lvi_data %}
                         <div class="dropdown-divider"></div>
                         <p>
-                            2023-04-31..
+                            {{lv.adateDeparture|date:"Y-m-d"}}
                         </p>
+                        {% endfor %}
                     </div>
                     <div class="col-sm-3">
                         <p><b><i>Arrival a-date</i></b></p>
+                        {% for lv in lvi_data %}
                         <div class="dropdown-divider"></div>
                         <p>
-                            2023-04-31..
+                            {{lv.adateArrival|date:"Y-m-d"}}
                         </p>
+                        {% endfor %}
                     </div>
                 </div>
           </div>
@@ -178,31 +206,45 @@
                 <div class="row mb-2" stye="padding:5px;">
                     <div class="col-sm-3">
                         <p><b><i>Item Number</i></b></p>
+                        {% for lvv in lvi_data %}
                         <div class="dropdown-divider"></div>
-                        <p>
-                            13558092
+                        <p >
+                            {{lvv.loafum.openf.itemNo}}
                         </p>
+                        {% endfor %}
                     </div>  
-                    <div class="col-sm-3">
+                    <div class="col-sm-3"> 
                         <p><b><i>si- Received date</i></b></p>
+                        {% for lvv in lvi_data %}
                         <div class="dropdown-divider"></div>
                         <p>
-                            2023-04-31..
+                            {{lvv.siReceiveDate|date:"Y-m-d"}}
                         </p>
+                        {% endfor %}
                     </div>
                     <div class="col-sm-3">
                         <p><b><i>Received by</i></b></p>
+                        {% for lvv in lvi_data %}
                         <div class="dropdown-divider"></div>
                         <p>
-                            madukapcm@gmail.com
+                            {{lvv.lvuser.email}}
                         </p>
+                        {% endfor %}
                     </div>
                     <div class="col-sm-3">
                         <p><b><i>Status</i></b></p>
+                        {% for lvv in lvi_data %}
                         <div class="dropdown-divider"></div>
-                        <p>
-                            taken
+                        {% if lvv.isDone %}
+                        <p stye="color:green;">
+                            <b>taken</b>
                         </p>
+                        {% else %}
+                        <p stye="color:green;">
+                          <b>waiting</b>
+                        </p>
+                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
